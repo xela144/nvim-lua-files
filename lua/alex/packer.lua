@@ -20,7 +20,7 @@ return require('packer').startup(function(use)
 		  vim.cmd('colorscheme rose-pine')
 	  end
   })
-  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate' })
+  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate,:TSInstall python' })
   use('nvim-treesitter/playground')
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
@@ -54,6 +54,13 @@ use {
   },
 }
 
-use {"eandrju/cellular-automaton.nvim"}
+use {'eandrju/cellular-automaton.nvim'}
+
+-- Debugger
+use {'mfussenegger/nvim-dap'}
+use {'mfussenegger/nvim-dap-python'}
+
+-- Debugger UI
+use {'rcarriga/nvim-dap-ui', requires='mfussenegger/nvim-dap'}
 
 end)
