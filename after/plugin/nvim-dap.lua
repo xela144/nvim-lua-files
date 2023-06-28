@@ -29,12 +29,6 @@ dap_ui.setup()
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dap_ui.open()
 end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  dap_ui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dap_ui.close()
-end
 
 -- Manually toggle the UI
 vim.keymap.set('n', '<Leader>dt', function() dap_ui.toggle() end)
