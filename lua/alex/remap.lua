@@ -19,7 +19,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", "\"_dP")
 
 -- Yank to system with leader
-vim.keymap.set({"n", "v"}, "<leader>y", "\"+y")
+vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
 vim.keymap.set("n", "<leader>Y", "\"+Y")
 
 -- Use tmux to hop around sessions? Not working...
@@ -34,3 +34,4 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 -- make it rain, game of life
 vim.keymap.set("n", "<leader>mr", ":CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<leader>gl", ":CellularAutomaton game_of_life<CR>")
+
