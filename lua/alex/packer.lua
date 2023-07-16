@@ -47,6 +47,7 @@ return require('packer').startup(function(use)
 }
 
 
+-- Nvim-tree to replace NerdTree
 use {
   'nvim-tree/nvim-tree.lua',
   requires = {
@@ -54,6 +55,7 @@ use {
   },
 }
 
+-- Useless plugin
 use {'eandrju/cellular-automaton.nvim'}
 
 -- Debugger
