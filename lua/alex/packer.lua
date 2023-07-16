@@ -58,7 +58,9 @@ use {'eandrju/cellular-automaton.nvim'}
 
 -- Debugger
 use {'mfussenegger/nvim-dap'}
+-- Python, Go
 use {'mfussenegger/nvim-dap-python'}
+use {'leoluz/nvim-dap-go'}
 
 -- Debugger UI
 use {'rcarriga/nvim-dap-ui', requires='mfussenegger/nvim-dap'}
