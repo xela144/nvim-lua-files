@@ -11,12 +11,15 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvi
 
 ```bash
 cd ~/.config/nvim/lua/alex
-nvim packer.lua
+nvim
 ```
+Ignore errors.
+
 
 In the neovim terminal:
 
 ```
+:edit packer.lua
 :so
 :PackerSync
 ```
