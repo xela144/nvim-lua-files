@@ -35,3 +35,5 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>mr", ":CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<leader>gl", ":CellularAutomaton game_of_life<CR>")
 
+-- Use black formatter for python code
+vim.keymap.set("n", "<leader>bl", ":!black % --line-length=100<CR>")
