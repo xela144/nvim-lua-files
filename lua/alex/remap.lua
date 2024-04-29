@@ -37,3 +37,7 @@ vim.keymap.set("n", "<leader>gl", ":CellularAutomaton game_of_life<CR>")
 
 -- Use black formatter for python code
 vim.keymap.set("n", "<leader>bl", ":!black % --line-length=100<CR>")
+
+-- LSP server
+vim.keymap.set("n", "<leader>lsr", ":LspRestart<CR>")
+vim.keymap.set("n", "<leader>lss", ":LspStop<CR>")
