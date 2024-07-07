@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
 		  vim.cmd('colorscheme rose-pine')
 	  end
   })
-  use { "nvim-neotest/nvim-nio" }
+  use('nvim-neotest/nvim-nio')
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate,:TSInstall python' })
   use('nvim-treesitter/playground')
   use('theprimeagen/harpoon')
