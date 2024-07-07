@@ -1,32 +1,37 @@
 local lsp = require('lsp-zero')
 
-
 lsp.preset('recommended')
-lsp.ensure_installed({
-	--'lua-language-server',
+require('mason').setup()
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        'lua_ls',
+        'tailwindcss',
+        'tsserver',
+        -- 'gopls',
+    },
+    handlers = {
+      function(server_name)
+        require('lspconfig')[server_name].setup({})
+      end,
+  },
 })
 
--- fix undefined global 'vim'
-lsp.nvim_workspace()
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ["<C-Space>"] = cmp.mapping.complete(),
-  ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+
+cmp.setup({
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
     },
-  }
-)
-
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+    mapping = cmp.mapping.preset.insert({
+      ['<C-p>'] = cmp.mapping.select_prev_item(),
+      ['<C-n>'] = cmp.mapping.select_next_item(),
+      ['<CR>'] = cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        },
+    })
 })
 
 lsp.set_preferences({
@@ -39,7 +44,9 @@ lsp.set_preferences({
     }
 })
 
-lsp.on_attach(function(client, bufnr)
+
+lsp.on_attach(
+function(client, bufnr)
 	local opts = {buffer = bufnr, remap = false}
 
 	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -52,14 +59,11 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 	vim.keymap.set("n", "<leader>vsh", function() vim.lsp.buf.signature_help() end, opts)
-
-end)
-
+end
+)
 
 lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true
 })
-
-
