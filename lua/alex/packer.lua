@@ -66,4 +66,7 @@ use {'leoluz/nvim-dap-go'}
 -- Debugger UI
 use {'rcarriga/nvim-dap-ui', requires='mfussenegger/nvim-dap'}
 
+-- Formatter
+use {'mhartington/formatter.nvim'}
+
 end)

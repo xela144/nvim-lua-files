@@ -1,13 +1,17 @@
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
-require('mason').setup()
+require('mason').setup({
+    ensure_installed = {
+        'prettierd',
+        'gopls',
+    }
+})
 require('mason-lspconfig').setup({
     ensure_installed = {
         'lua_ls',
         'tailwindcss',
         'tsserver',
-        -- 'gopls',
     },
     handlers = {
       function(server_name)
