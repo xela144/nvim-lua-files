@@ -11,3 +11,6 @@ function ColorMyPencils(color)
 end
 
 ColorMyPencils()
+
+-- Hex color preview
+require("colorizer").setup()

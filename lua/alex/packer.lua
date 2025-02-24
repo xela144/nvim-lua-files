@@ -69,4 +69,7 @@ return require("packer").startup(function(use)
 
   -- Formatter
   use({ "mhartington/formatter.nvim" })
+
+  -- Hex color preview
+  use("catgoose/nvim-colorizer.lua")
 end)
