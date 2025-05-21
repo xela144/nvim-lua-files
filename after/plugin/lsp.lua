@@ -11,7 +11,7 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls",
     "tailwindcss",
-    -- 'tsserver',
+    "ts_ls",
   },
   handlers = {
     function(server_name)
@@ -36,6 +36,15 @@ cmp.setup({
     }),
   }),
 })
+
+require("lspconfig").ts_ls.setup({})
+vim.cmd([[
+    autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+]])
+
+vim.cmd([[
+    nnoremap <silent> <leader>e :lua vim.diagnostic.setloclist()<CR>:set wrap <CR>
+]])
 
 lsp.set_preferences({
   suggest_lsp_servers = false,
