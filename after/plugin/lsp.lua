@@ -89,6 +89,9 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vsh", function()
     vim.lsp.buf.signature_help()
   end, opts)
+  vim.keymap.set("i", "<C-Space>", function()
+    cmp.complete()
+  end, opts)
 end)
 
 lsp.configure("pylsp", {
