@@ -5,6 +5,7 @@ require("mason").setup({
   ensure_installed = {
     "prettierd",
     "gopls",
+
   },
 })
 require("mason-lspconfig").setup({
