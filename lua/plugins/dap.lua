@@ -1,13 +1,9 @@
 return {
   "mfussenegger/nvim-dap-python",
   "nvim-neotest/nvim-nio",
-  "mfussenegger/nvim-dap",
   "leoluz/nvim-dap-go",
   {
-    "rcarriga/nvim-dap-ui",
-    dependencies = "mfussenegger/nvim-dap",
-  },
-  {
+    "mfussenegger/nvim-dap",
     config = function()
       require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
       require("dap-go").setup()
@@ -74,5 +70,9 @@ return {
         },
       })
     end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = "mfussenegger/nvim-dap",
   },
 }
