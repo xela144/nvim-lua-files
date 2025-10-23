@@ -44,28 +44,31 @@ return {
           typescript = {
             require("formatter.filetypes.typescript").prettier,
           },
+          python = {
+            require("formatter.filetypes.python").ruff,
+          },
           ["*"] = {
             require("formatter.filetypes.any").remove_trailing_whitespace,
           },
         },
       })
 
-      vim.lsp.config("pyright", {
-        settings = {
-          pyright = {
-            -- Using Ruff's import organizer
-            disableOrganizeImports = true,
-          },
-          python = {
-            analysis = {
-              -- Ignore all files for analysis to exclusively use Ruff for linting
-              ignore = { "*" },
-            },
-          },
-        },
-      })
+      -- vim.lsp.config("pyright", {
+      --   settings = {
+      --     pyright = {
+      --       -- Using Ruff's import organizer
+      --       disableOrganizeImports = true,
+      --     },
+      --     python = {
+      --       analysis = {
+      --         -- Ignore all files for analysis to exclusively use Ruff for linting
+      --         ignore = { "*" },
+      --       },
+      --     },
+      --   },
+      -- })
 
-      vim.lsp.enable("pyright")
+      -- vim.lsp.enable("pyright")
 
       local augroup = vim.api.nvim_create_augroup
       local autocmd = vim.api.nvim_create_autocmd

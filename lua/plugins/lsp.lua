@@ -30,7 +30,7 @@ return {
           "lua_ls",
           "tailwindcss",
           "ts_ls",
-          "pylsp",
+          -- "pylsp",
         },
         handlers = {
           function(server_name)
