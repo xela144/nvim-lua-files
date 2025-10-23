@@ -84,7 +84,7 @@ return {
             nnoremap <silent> <leader>e :lua vim.diagnostic.setloclist()<CR>:set wrap <CR>
         ]])
 
-      lsp.set_preferences({
+      lsp.set_sign_icons({
         suggest_lsp_servers = false,
         sign_icons = {
           error = "E",
