@@ -21,18 +21,34 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-require('alex.set')
-require('alex.remap')
+require("alex.set")
+require("alex.remap")
 
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
     -- import your plugins
     { import = "plugins" },
+
+    -- Plugin that fixes "undefined global vim"
+    {
+     "folke/lazydev.nvim",
+     ft = "lua", -- only load on lua files
+     opts = {
+       library = {
+         -- See the configuration section for more details
+         -- Load luvit types when the `vim.uv` word is found
+         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+       },
+     },
+    },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
+
+  rocks = { enabled = false },
+
 })
