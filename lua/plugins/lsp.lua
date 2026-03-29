@@ -10,56 +10,43 @@ return {
           pcall(vim.cmd, "MasonUpdate")
         end,
       },
+
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "L3MON4D3/LuaSnip",
     },
+
     config = function()
       local lsp = require("lsp-zero")
-
-      lsp.preset("recommended")
-      require("mason").setup({
-        ensure_installed = {
-          "prettierd",
-          "gopls",
-        },
+      vim.opt.winblend = 20
+      vim.opt.winborder = "rounded"
+      vim.diagnostic.config({
+        float = { border = "rounded" },
+        virtual_text = true,
       })
+      vim.opt.signcolumn = "yes"
+      require("mason").setup({})
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
           "tailwindcss",
           "ts_ls",
-          "pylsp",
+          "ruff",
+          "pyright",
         },
         handlers = {
           function(server_name)
-            if server_name == "pylsp" then
-              vim.lsp.config.pylsp.launch({
-                settings = {
-                  pylsp = {
-                    plugins = {
-                      pycodestyle = {
-                        maxLineLength = 100,
-                        ignore = { "W391" },
-                        enabled = true,
-                      },
-                      flake8 = {
-                        maxLineLength = 100,
-                        enabled = true,
-                      },
-                    },
-                  },
-                },
-              })
-            else
-              vim.lsp.config[server_name].launch({})
-            end
+            vim.lsp.enable(server_name)
           end,
         },
       })
-
+      local lsp_defaults = require("lspconfig").util.default_config
+      lsp_defaults.capabilities =
+        vim.tbl_deep_extend("force", lsp_defaults.capabilities or {}, require("cmp_nvim_lsp").default_capabilities())
       local cmp = require("cmp")
+
+
 
       cmp.setup({
         window = {
@@ -75,7 +62,6 @@ return {
           }),
         }),
       })
-
       vim.cmd([[
             autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
         ]])
@@ -94,49 +80,25 @@ return {
         },
       })
 
-      lsp.on_attach(function(client, bufnr)
-        local opts = { buffer = bufnr, remap = false }
-
-        vim.keymap.set("n", "gd", function()
-          vim.lsp.buf.definition()
-        end, opts)
-        vim.keymap.set("n", "K", function()
-          vim.lsp.buf.hover()
-        end, opts)
-        vim.keymap.set("n", "<leader>vws", function()
-          vim.lsp.buf.workspace_symbol()
-        end, opts)
-        vim.keymap.set("n", "<leader>vd", function()
-          vim.diagnostic.open_float()
-        end, opts)
-        vim.keymap.set("n", "[d", function()
-          vim.diagnostic.goto_next()
-        end, opts)
-        vim.keymap.set("n", "]d", function()
-          vim.diagnostic.goto_prev()
-        end, opts)
-        vim.keymap.set("n", "<leader>vca", function()
-          vim.lsp.buf.code_action()
-        end, opts)
-        vim.keymap.set("n", "<leader>vrr", function()
-          vim.lsp.buf.references()
-        end, opts)
-        vim.keymap.set("n", "<leader>vrn", function()
-          vim.lsp.buf.rename()
-        end, opts)
-        vim.keymap.set("n", "<leader>vsh", function()
-          vim.lsp.buf.signature_help()
-        end, opts)
-        vim.keymap.set("i", "<C-Space>", function()
-          cmp.complete()
-        end, opts)
-      end)
-
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(event)
+          local opts = { buffer = event.buf }
+          -- vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+          vim.keymap.set("n", "K", function()
+            vim.lsp.buf.hover({ border = "rounded" })
+          end, opts)
+          vim.keymap.set("n", "fm", "<cmd>LspZeroFormat<cr>", opts)
+          vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+          vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
+          vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+          vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+          vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+          vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async=true})<cr>", opts)
+          vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+        end,
+      })
       lsp.setup()
 
-      vim.diagnostic.config({
-        virtual_text = true,
-      })
     end,
   },
 }
