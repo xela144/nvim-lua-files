@@ -28,12 +28,10 @@ return {
       vim.opt.signcolumn = "yes"
       require("mason").setup({})
       require("mason-lspconfig").setup({
+        automatic_installation = false,
         ensure_installed = {
           "lua_ls",
-          "tailwindcss",
-          "ts_ls",
           "ruff",
-          "pyright",
         },
         handlers = {
           function(server_name)
@@ -41,12 +39,13 @@ return {
           end,
         },
       })
+      vim.lsp.enable("ts_ls")
+      vim.lsp.enable("tailwindcss")
+      vim.lsp.enable("pyright")
       local lsp_defaults = require("lspconfig").util.default_config
       lsp_defaults.capabilities =
         vim.tbl_deep_extend("force", lsp_defaults.capabilities or {}, require("cmp_nvim_lsp").default_capabilities())
       local cmp = require("cmp")
-
-
 
       cmp.setup({
         window = {
@@ -98,7 +97,6 @@ return {
         end,
       })
       lsp.setup()
-
     end,
   },
 }

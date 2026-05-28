@@ -8,8 +8,6 @@ return {
       require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
       require("dap-go").setup()
 
-      require("dap.ext.vscode").load_launchjs(nil, {})
-
       local dap = require("dap")
 
       vim.keymap.set("n", "<F5>", function()
