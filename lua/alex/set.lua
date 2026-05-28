@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 vim.opt.backup = false
+vim.opt.backupcopy = "yes"
 vim.opt.colorcolumn = "100"
 vim.opt.expandtab = true
 vim.opt.hlsearch = true
