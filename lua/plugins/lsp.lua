@@ -26,6 +26,17 @@ return {
         virtual_text = true,
       })
       vim.opt.signcolumn = "yes"
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            workspace = {
+              library = { vim.env.VIMRUNTIME },
+              checkThirdParty = false,
+            },
+          },
+        },
+      })
       require("mason").setup({})
       require("mason-lspconfig").setup({
         automatic_installation = false,
